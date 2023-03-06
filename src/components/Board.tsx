@@ -1,14 +1,22 @@
-import {useState} from "react";
 import Square from "./Square";
 import calculateWinner from "../calculateWinner";
 
-const Board = () => {
-    const [squares, setSquares] = useState(Array(9).fill(null));
-    const [xIsNext, setXIsNext] = useState(true);
+interface Props {
+    xIsNext: boolean;
+    squares: any;
+    onPlay: any;
 
-    const winner = calculateWinner(squares);
+}
+
+const Board: React.FC<Props> = ({xIsNext, squares, onPlay}) => {
+    console.log("squares: ", squares);
     let status;
-    console.log(winner);
+    let winner;
+    if (squares) {
+        winner = calculateWinner(squares);
+        console.log(winner);
+    }
+
 
     if (winner) {
         status = `${winner} is the winner!`;
@@ -17,20 +25,21 @@ const Board = () => {
     }
 
     const clickHandler = (i: number) => {
-
         if (squares[i] || calculateWinner(squares)) return;
 
         const sqArray = [...squares];
         xIsNext ? sqArray[i] = 'X' : sqArray[i] = 'O'
-        setSquares(sqArray);
-        setXIsNext(!xIsNext);
+
+        onPlay(sqArray);
+        // setSquares(sqArray);
+        // setXIsNext(!xIsNext);
     }
 
     return (
         <div>
-        <div className="status">{status}</div>
+            <div className="status">{status}</div>
 
-        <div className="board-row">
+            <div className="board-row">
                 <Square value={squares[0]} onClick={() => {
                     clickHandler(0)
                 }}/>

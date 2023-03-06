@@ -1,4 +1,4 @@
-const calculateWinner = (squares: string | null[]) => {
+const calculateWinner = (squares: any) => {
     let winner = null;
     const lines = [
         [0, 1, 2],
@@ -13,6 +13,7 @@ const calculateWinner = (squares: string | null[]) => {
 
     lines.forEach((line) => {
         const [a, b, c] = line;
+        console.log(`a: ${a} b: ${b} c: ${c}`)
         if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
             winner = squares[a];
         }
