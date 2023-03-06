@@ -1,13 +1,13 @@
-import {useState} from "react";
+interface Props {
+    value: string;
+    onClick: any;
+}
 
-const Square = () => {
+const Square: React.FC<Props> = ({value, onClick}) => {
 
-    const [value, setValue] = useState<string>();
-    const clickHandler = () => {
-        setValue('X');
-    }
+
     return (
-        <button className="square" onClick={clickHandler}>
+        <button className="square" onClick={onClick}>
             {value}
         </button>
     )
